@@ -2,12 +2,13 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config()
 
-const inputPath = 'images/didi.jpg';
+const inputPath = 'images/logo.png';
 const formData = new FormData();
 formData.append('size', 'auto');
 formData.append('image_file', fs.createReadStream(inputPath), path.basename(inputPath));
-
+const API = process.env.API_KEY
 axios({
   method: 'post',
   url: 'https://api.remove.bg/v1.0/removebg',
@@ -15,7 +16,7 @@ axios({
   responseType: 'arraybuffer',
   headers: {
     ...formData.getHeaders(),
-    'X-Api-Key': 'zW4hcobxynDhWQhDYkPis3Qr',
+    'X-Api-Key': API,
   },
   encoding: null
 })
